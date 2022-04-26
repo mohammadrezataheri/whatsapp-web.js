@@ -105,7 +105,7 @@ class Client extends EventEmitter {
         await this.authStrategy.afterBrowserInitialized();
 
         await page.goto(WhatsWebURL, {
-            waitUntil: 'load',
+            waitUntil: 'domcontentloaded',
             timeout: 0,
             referer: 'https://whatsapp.com/'
         });
