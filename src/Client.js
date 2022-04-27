@@ -82,7 +82,7 @@ class Client extends EventEmitter {
     /**
      * Sets up events and requirements, kicks off authentication request
      */
-    async initialize(props) {
+    async initialize({props}) {
         let [browser, page] = [null, null];
 
         const {proxy} = props
@@ -97,6 +97,7 @@ class Client extends EventEmitter {
         } else {
             browser = await puppeteer.launch(puppeteerOpts);
             page = (await browser.pages())[0];
+            proxy && await page.authenticate(proxy)
         }
       
         await page.setUserAgent(this.options.userAgent);
