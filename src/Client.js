@@ -82,8 +82,10 @@ class Client extends EventEmitter {
     /**
      * Sets up events and requirements, kicks off authentication request
      */
-    async initialize() {
+    async initialize(props) {
         let [browser, page] = [null, null];
+
+        const {proxy} = props
 
         await this.authStrategy.beforeBrowserInitialized();
 
@@ -91,6 +93,7 @@ class Client extends EventEmitter {
         if (puppeteerOpts && puppeteerOpts.browserWSEndpoint) {
             browser = await puppeteer.connect(puppeteerOpts);
             page = await browser.newPage();
+            proxy && await page.authenticate(proxy)
         } else {
             browser = await puppeteer.launch(puppeteerOpts);
             page = (await browser.pages())[0];
