@@ -82,7 +82,7 @@ class Client extends EventEmitter {
     /**
      * Sets up events and requirements, kicks off authentication request
      */
-    async initialize({props}) {
+    async initialize(props) {
         let [browser, page] = [null, null];
 
         const {proxy} = props
